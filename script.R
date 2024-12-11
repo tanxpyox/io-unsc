@@ -191,6 +191,8 @@ stargazer(r1, r3, r4, r5, r6, r7, r8, type = "html", omit = "year",
 
 library(lme4)
 
+reg_df$UNRegT <- df$UNRegT
+
 r1 <- glmer(UNRES ~ threat + log(trade_flow) + oil_dummy  + (1 | UNRegT),
           family = "binomial", data = reg_df %>% filter(intervene != 0))
 # r12<- lm(UNRES ~ threat + target_rGDPpc + factor(styear), data = df)
@@ -225,7 +227,7 @@ r1 <- polr(intervene ~ threat, # + factor(styear),
 # r12<- lm(UNRES ~ threat + target_rGDPpc + factor(styear), data = df)
 # r15 <- lm(UNRES ~ target_polity + factor(styear), data = df)
 # r2 <- lm(UNRES ~ target_polity + log(distance)  + factor(styear), data = df)
-r3 <- polr(intervene ~ target_polity + scale(distance),
+r3 <- polr(intervene ~ scale(target_polity) + scale(distance),
            Hess = T, data = df)
 
 # r4 <- ologit(UNRES ~ humanitarian + factor(styear),  family = "binomial", data = df)
